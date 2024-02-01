@@ -1,6 +1,4 @@
-#!/usr/bin/env python
-
-from __future__ import print_function
+#!/usr/bin/env python3
 
 import argparse
 import errno
@@ -79,11 +77,6 @@ class SourceFileRenderer:
                 self.cpp_lexer,
                 self.html_formatter)
 
-            # Note that the API is different between Python 2 and 3.  On
-            # Python 3, pygments.highlight() returns a bytes object, so we
-            # have to decode.  On Python 2, the output is str but since we
-            # support unicode characters and the output streams is unicode we
-            # decode too.
             html_highlighted = html_highlighted.decode('utf-8')
 
             # Take off the header and footer, these must be

@@ -1,13 +1,12 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
-from __future__ import print_function
 
 '''Prepare a code coverage artifact.
 
 - Collate raw profiles into one indexed profile.
 - Generate html reports for the given binaries.
 
-Caution: The positional arguments to this script must be specified before any 
+Caution: The positional arguments to this script must be specified before any
 optional arguments, such as --restrict.
 '''
 
@@ -113,5 +112,5 @@ if __name__ == '__main__':
 
     if not args.only_merge:
         prepare_html_reports(args.host_llvm_cov, profdata_path, args.report_dir,
-                             args.binaries, args.unified_report, args.restrict, 
+                             args.binaries, args.unified_report, args.restrict,
                              args.compilation_dir)

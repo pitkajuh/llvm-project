@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 """Check CFC - Check Compile Flow Consistency
 
@@ -47,7 +47,6 @@ To add a new check:
  subclass.
 """
 
-from __future__ import absolute_import, division, print_function
 
 import imp
 import os
@@ -56,12 +55,8 @@ import shutil
 import subprocess
 import sys
 import tempfile
-try:
-    import configparser
-except ImportError:
-    import ConfigParser as configparser
+import configparser
 import io
-
 import obj_diff
 
 def is_windows():

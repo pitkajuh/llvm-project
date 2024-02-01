@@ -1,4 +1,3 @@
-from __future__ import absolute_import
 import errno
 import io
 import itertools
@@ -11,12 +10,7 @@ import platform
 import shutil
 import tempfile
 import threading
-
-import io
-try:
-    from StringIO import StringIO
-except ImportError:
-    from io import StringIO
+from io import StringIO
 
 from lit.ShCommands import GlobItem, Command
 import lit.ShUtil as ShUtil
@@ -359,7 +353,7 @@ def executeBuiltinEcho(cmd, shenv):
             return arg
 
         arg = lit.util.to_bytes(arg)
-        codec = 'string_escape' if sys.version_info < (3,0) else 'unicode_escape'
+        codec = 'string_escape'
         return arg.decode(codec)
 
     if args:
@@ -782,12 +776,8 @@ def _executeShCmd(cmd, shenv, results, timeoutHelper):
 
         # Replace uses of /dev/null with temporary files.
         if kAvoidDevNull:
-            # In Python 2.x, basestring is the base class for all string (including unicode)
-            # In Python 3.x, basestring no longer exist and str is always unicode
-            try:
-                str_type = basestring
-            except NameError:
-                str_type = str
+            str_type = str
+
             for i,arg in enumerate(args):
                 if isinstance(arg, str_type) and kDevNull in arg:
                     f = tempfile.NamedTemporaryFile(delete=False)
@@ -1012,7 +1002,7 @@ def executeScript(test, litConfig, tmpBase, commands, cwd):
     open_kwargs = {}
     if litConfig.isWindows and not isWin32CMDEXE:
         mode += 'b'  # Avoid CRLFs when writing bash scripts.
-    elif sys.version_info > (3,0):
+    else:
         open_kwargs['encoding'] = 'utf-8'
     f = open(script, mode, **open_kwargs)
     if isWin32CMDEXE:
@@ -1039,7 +1029,7 @@ def executeScript(test, litConfig, tmpBase, commands, cwd):
             f.write(b'set -o pipefail;' if mode == 'wb' else 'set -o pipefail;')
         if litConfig.echo_all_commands:
             f.write(b'set -x;' if mode == 'wb' else 'set -x;')
-        if sys.version_info > (3,0) and mode == 'wb':
+        if mode == 'wb':
             f.write(bytes('{ ' + '; } &&\n{ '.join(commands) + '; }', 'utf-8'))
         else:
             f.write('{ ' + '; } &&\n{ '.join(commands) + '; }')

@@ -1,4 +1,3 @@
-from __future__ import print_function
 import struct
 import sys
 
@@ -9,9 +8,6 @@ class Iterator:
   def __iter__(self):
     return self
 
-  if sys.version_info.major == 2:
-      def next(self):
-        return self.__next__()
 
   def children(self):
     return self
@@ -88,8 +84,6 @@ class ArrayRefPrinter:
       self.cur = self.cur + 1
       return '[%d]' % count, cur.dereference()
 
-    if sys.version_info.major == 2:
-        next = __next__
 
   def __init__(self, val):
     self.val = val
@@ -189,8 +183,6 @@ class DenseMapPrinter:
         self.first = False
       return 'x', v
 
-    if sys.version_info.major == 2:
-        next = __next__
 
   def __init__(self, val):
     self.val = val

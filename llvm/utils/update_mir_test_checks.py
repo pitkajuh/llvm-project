@@ -18,8 +18,6 @@ that are common between different commands will be left as-is by
 default, or removed if the --remove-common-prefixes flag is provided.
 """
 
-from __future__ import print_function
-
 import argparse
 import collections
 import glob
@@ -73,8 +71,7 @@ class LLC:
         with open(ir) as ir_file:
             stdout = subprocess.check_output('{} {}'.format(self.bin, args),
                                              shell=True, stdin=ir_file)
-            if sys.version_info[0] > 2:
-              stdout = stdout.decode()
+            stdout = stdout.decode()
             # Fix line endings to unix CR style.
             stdout = stdout.replace('\r\n', '\n')
         return stdout

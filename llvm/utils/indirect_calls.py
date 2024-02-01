@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 """A tool for looking for indirect jumps and calls in x86 binaries.
 
@@ -10,7 +10,6 @@
    dump format.
 """
 
-from __future__ import print_function
 
 import os
 import sys
@@ -18,7 +17,7 @@ import re
 import subprocess
 import optparse
 
-# Look for indirect calls/jmps in a binary. re: (call|jmp).*\* 
+# Look for indirect calls/jmps in a binary. re: (call|jmp).*\*
 def look_for_indirect(file):
     args = ['llvm-objdump']
     args.extend(["-d"])

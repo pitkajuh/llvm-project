@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """Utility for opening a file using the default application in a cross-platform
@@ -109,11 +109,7 @@ elif sys.platform == 'darwin':
 
 # Platform support for Unix
 else:
-
-    try:
-        from commands import getoutput
-    except ImportError:
-        from subprocess import getoutput
+    from subprocess import getoutput
 
     # @WARNING: use the private API of the webbrowser module
     from webbrowser import _iscommand
